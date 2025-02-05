@@ -1,0 +1,13 @@
+{
+    "name": "Go",
+    "image": "mcr.microsoft.com/devcontainers/go:1",
+    "customizations": {
+        "vscode": {
+            "extensions": ["editorconfig.editorconfig", "golang.go"],
+            "settings": {
+                "go.gopath": "/go"
+            }
+        }
+    },
+    "remoteUser": "vscode"
+}
