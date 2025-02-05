@@ -29,6 +29,7 @@ func lex(text string) iter.Seq[node] {
 					// NOTE Failed to parse control, so falling back to treating as an invisible
 					// character.
 					n = invisible(text[0:1])
+					rem = rem[1:]
 				}
 				if !yield(n) {
 					return
