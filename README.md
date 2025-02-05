@@ -2,6 +2,9 @@
 
 This converts ASCII art to an image. Still a work-in-progress, search for `TODO` to see all that's left to be done.
 
+Note that this does *not* act similarly to taking a screenshot. If you need behavior like that, check out
+[textimg][textimg]. Instead, this treats characters in ASCII art as *pixels.*
+
 ## How it works
 
 When a character is encountered, it is treated like a pixel. Most characters have 100%
@@ -38,3 +41,4 @@ resize it in the way that works best for them.
 Check out the [examples] to see the input ASCII art.
 
 [examples]: ./_examples/
+[textimg]: https://github.com/jiro4989/textimg
