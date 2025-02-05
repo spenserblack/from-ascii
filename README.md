@@ -1,6 +1,6 @@
 # `from-ascii`
 
-This converts ASCII art to an image.
+This converts ASCII art to an image. Still a work-in-progress, search for `TODO` to see all that's left to be done.
 
 ## How it works
 
