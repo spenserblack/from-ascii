@@ -39,7 +39,9 @@ func main() {
 }
 
 func readInput(input string) (string, error) {
+	const megabyte = 1 << 20
 	var r io.Reader
+	buf := make([]byte, megabyte)
 	if input == "-" {
 		r = os.Stdin
 	} else {
@@ -51,9 +53,9 @@ func readInput(input string) (string, error) {
 		defer f.Close()
 		r = f
 	}
-	b, err := io.ReadAll(r)
-	if err != nil {
+	n, err := r.Read(buf)
+	if err != nil && err != io.EOF {
 		return "", err
 	}
-	return string(b), nil
+	return string(buf[:n]), nil
 }
