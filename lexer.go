@@ -13,17 +13,18 @@ import (
 func lex(text string) iter.Seq[node] {
 	return func(yield func(node) bool) {
 		for text != "" {
-			if strings.HasPrefix(text, "\n") {
+			switch {
+			case strings.HasPrefix(text, "\n"):
 				if !yield(newline(unix)) {
 					return
 				}
 				text = text[1:]
-			} else if strings.HasPrefix(text, "\r\n") {
+			case strings.HasPrefix(text, "\r\n"):
 				if !yield(newline(windows)) {
 					return
 				}
 				text = text[2:]
-			} else if strings.HasPrefix(text, control[0]) {
+			case strings.HasPrefix(text, control[0]):
 				n, rem := lexControl(text)
 				if n == nil {
 					// NOTE Failed to parse control, so falling back to treating as an invisible
@@ -35,7 +36,7 @@ func lex(text string) iter.Seq[node] {
 					return
 				}
 				text = rem
-			} else {
+			default:
 				if !yield(character{Value: text[0]}) {
 					return
 				}

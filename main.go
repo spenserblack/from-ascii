@@ -1,9 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"image/png"
 	"io"
-	"log"
 	"os"
 )
 
@@ -17,7 +17,8 @@ func main() {
 	// TODO Use an `io.Reader` in `lex` so that conversion to string isn't necessary.
 	src, err := readInput(args[0])
 	if err != nil {
-		log.Fatal(err)
+		fmt.Fprintln(os.Stderr, err)
+		return
 	}
 	art := parse(lex(src))
 
@@ -26,12 +27,14 @@ func main() {
 	// TODO Allow setting output path.
 	dst, err := os.Create("ascii-art.png")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Fprintln(os.Stderr, err)
+		return
 	}
 	defer dst.Close()
 
 	if err := png.Encode(dst, m); err != nil {
-		log.Fatal(err)
+		fmt.Fprintln(os.Stderr, err)
+		return
 	}
 }
 
