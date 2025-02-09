@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"image/png"
 	"io"
@@ -12,7 +13,8 @@ func main() {
 	//
 	//		- Changing colors (e.g. `-red "#FF8888")
 	//		- Setting output path
-	args := os.Args[1:]
+	flag.Parse()
+	args := flag.Args()
 
 	// TODO Use an `io.Reader` in `lex` so that conversion to string isn't necessary.
 	src, err := readInput(args[0])
@@ -25,7 +27,7 @@ func main() {
 	m := art.asImage()
 
 	// TODO Allow setting output path.
-	dst, err := os.Create("ascii-art.png")
+	dst, err := os.Create(args[1])
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		return
