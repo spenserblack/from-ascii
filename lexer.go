@@ -35,7 +35,7 @@ func lex(text string) iter.Seq[node] {
 					return
 				}
 				text = rem
-			} else  {
+			} else {
 				if !yield(character{Value: text[0]}) {
 					return
 				}
