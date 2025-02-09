@@ -1,9 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"image/png"
 	"io"
-	"log"
 	"os"
 )
 
@@ -18,7 +18,8 @@ func main() {
 	// TODO Use an iterator in `parse` so that conversion to slice isn't necessary.
 	src, err := readInput(args[0])
 	if err != nil {
-		log.Fatal(err)
+		fmt.Fprintln(os.Stderr, err)
+		return
 	}
 	nodes := make([]node, 0)
 	for n := range lex(src) {
@@ -31,12 +32,14 @@ func main() {
 	// TODO Allow setting output path.
 	dst, err := os.Create("ascii-art.png")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Fprintln(os.Stderr, err)
+		return
 	}
 	defer dst.Close()
 
 	if err := png.Encode(dst, m); err != nil {
-		log.Fatal(err)
+		fmt.Fprintln(os.Stderr, err)
+		return
 	}
 }
 
