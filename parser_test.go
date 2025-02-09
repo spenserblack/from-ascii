@@ -1,6 +1,9 @@
 package main
 
-import "testing"
+import (
+	"slices"
+	"testing"
+)
 
 func TestParse(t *testing.T) {
 	tests := []struct {
@@ -49,7 +52,7 @@ func TestParse(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			a := parse(tt.nodes)
+			a := parse(slices.Values(tt.nodes))
 			if a.width != tt.width {
 				t.Errorf("a.width = %d, want %d", a.width, tt.width)
 			}

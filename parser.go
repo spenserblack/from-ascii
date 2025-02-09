@@ -1,14 +1,16 @@
 package main
 
+import "iter"
+
 // parse creates a new art from lexed nodes.
-func parse(nodes []node) art {
+func parse(nodes iter.Seq[node]) art {
 	a := art{
 		lines: [][]node{{}},
 		width: 0,
 	}
 	i := 0
 	width := 0
-	for _, n := range nodes {
+	for n := range nodes {
 		switch v := n.(type) {
 		case invisible:
 			continue
