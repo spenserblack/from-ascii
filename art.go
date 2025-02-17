@@ -66,6 +66,9 @@ func (a art) asImage() image.Image {
 				panic("unreachable")
 			}
 		}
+		for ; x < a.width; x++ {
+			background.Set(x, y, bgColor)
+		}
 	}
 
 	draw.Draw(background, rect, foreground, image.Point{X: 0, Y: 0}, draw.Over)
