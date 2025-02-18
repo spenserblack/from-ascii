@@ -19,19 +19,11 @@ func (a art) height() int {
 	return len(a.lines)
 }
 
-// TODO Make these modifiable via CLI.
-var (
-	// defaultBg is the default background when the background is reset or unspecified.
-	defaultBg = color.Black
-	// defaultFg is the default foreground when the background is reset or unspecified.
-	defaultFg = color.White
-)
-
 // asImage converts the art to an image.
 func (a art) asImage() image.Image {
 	var (
-		bgColor color.Color = defaultBg
-		fgColor color.Color = defaultFg
+		bgColor color.Color = defaultBgColor
+		fgColor color.Color = defaultFgColor
 	)
 	rect := image.Rect(0, 0, a.width, a.height())
 	background := image.NewRGBA(rect)
@@ -51,8 +43,8 @@ func (a art) asImage() image.Image {
 				x += 1
 			case styleNode:
 				if v.reset {
-					bgColor = defaultBg
-					fgColor = defaultFg
+					bgColor = defaultBgColor
+					fgColor = defaultFgColor
 				}
 				// NOTE It shouldn't be possible for reset to be true and fg or bg to be
 				//		not nil.

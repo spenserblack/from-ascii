@@ -3,7 +3,15 @@ package main
 import (
 	"flag"
 	"fmt"
+	"image/color"
 	"os"
+)
+
+var (
+	// defaultBgColor is the default background when the background is reset or unspecified.
+	defaultBgColor = cliColor{color.NRGBA{R: 0x00, G: 0x00, B: 0x00, A: 0xFF}}
+	// defaultFgColor is the default foreground when the background is reset or unspecified.
+	defaultFgColor = cliColor{color.NRGBA{R: 0xFF, G: 0xFF, B: 0xFF, A: 0xFF}}
 )
 
 func init() {
@@ -14,4 +22,6 @@ func init() {
 		fmt.Fprintf(flag.CommandLine.Output(), "\tOUTPUT\tPath to the output file.\n")
 		flag.PrintDefaults()
 	}
+	flag.Var(&defaultBgColor, "bg", "Background color in hex format (RRGGBB or RRGGBBAA).")
+	flag.Var(&defaultFgColor, "fg", "Foreground color in hex format (RRGGBB or RRGGBBAA).")
 }
