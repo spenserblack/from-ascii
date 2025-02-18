@@ -20,12 +20,10 @@ opacity, but a few have special cases:
 
 Contributions are welcome for adding opacity values for more characters.
 
-The generated image by default has a black background, with the assumption that the
-ASCII art is intended to be rendered on a dark-themed terminal. This is configurable
-via the CLI.
-
 Pixels can be assigned colors using ANSI escape codes (e.g.
-`"\033[31mRed text\033[0m"`).
+`"\033[31mRed text\033[0m"`). When the color isn't specified, it defaults to white text
+on a black background, with the assumption that it's the intended way to view the ASCII
+art. The default foreground and background are configurable via the CLI.
 
 Since each character in the ASCII art is treated like a pixel, and ASCII characters are
 typically taller than they are wide, the image may appear "squashed" vertically. Rather
