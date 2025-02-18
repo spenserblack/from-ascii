@@ -3,9 +3,14 @@ package main
 import (
 	"flag"
 	"fmt"
+	"image"
+	"image/gif"
+	"image/jpeg"
 	"image/png"
 	"io"
 	"os"
+	"path/filepath"
+	"strings"
 )
 
 func main() {
@@ -39,7 +44,25 @@ func main() {
 	}
 	defer dst.Close()
 
-	if err := png.Encode(dst, m); err != nil {
+	var encoder func(io.Writer, image.Image) error
+	imgFormat := formatFlag.String()
+	if imgFormat == "auto" {
+		imgFormat = strings.TrimPrefix(filepath.Ext(args[1]), ".")
+	}
+
+	switch imgFormat {
+	case "png":
+		encoder = png.Encode
+	case "jpeg", "jpg":
+		encoder = encodeJpeg
+	case "gif":
+		encoder = encodeGif
+	default:
+		fmt.Fprintf(os.Stderr, "unsupported format: %s\n", imgFormat)
+		return
+	}
+
+	if err := encoder(dst, m); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		return
 	}
@@ -65,4 +88,16 @@ func readInput(input string) (string, error) {
 		return "", err
 	}
 	return string(buf[:n]), nil
+}
+
+// encodeJpeg encodes a JPEG with the default options. This allows for the signature to
+// match the other encoding functions.
+func encodeJpeg(w io.Writer, m image.Image) error {
+	return jpeg.Encode(w, m, nil)
+}
+
+// encodeGif encodes a GIF with the default options. This allows for the signature to
+// match the other encoding functions.
+func encodeGif(w io.Writer, m image.Image) error {
+	return gif.Encode(w, m, nil)
 }

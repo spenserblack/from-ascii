@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"image/color"
 	"os"
+	"strings"
 )
 
 var (
@@ -12,6 +13,8 @@ var (
 	defaultBgColor = cliColor{color.NRGBA{R: 0x00, G: 0x00, B: 0x00, A: 0xFF}}
 	// defaultFgColor is the default foreground when the background is reset or unspecified.
 	defaultFgColor = cliColor{color.NRGBA{R: 0xFF, G: 0xFF, B: 0xFF, A: 0xFF}}
+	// formatFlag is the format to output the image in.
+	formatFlag = format{"auto"}
 )
 
 func init() {
@@ -24,4 +27,5 @@ func init() {
 	}
 	flag.Var(&defaultBgColor, "bg", "Background color in hex format (RRGGBB or RRGGBBAA).")
 	flag.Var(&defaultFgColor, "fg", "Foreground color in hex format (RRGGBB or RRGGBBAA).")
+	flag.Var(&formatFlag, "format", "Output format ["+strings.Join(validFormats, "|")+"].")
 }
