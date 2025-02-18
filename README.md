@@ -5,6 +5,14 @@ This converts ASCII art to an image. Still a work-in-progress, search for `TODO`
 Note that this does *not* act similarly to taking a screenshot. If you need behavior like that, check out
 [textimg][textimg]. Instead, this treats characters in ASCII art as *pixels.*
 
+## Installation
+
+### With `go`
+
+```shell
+go install github.com/spenserblack/from-ascii@latest
+```
+
 ## How it works
 
 When a character is encountered, it is treated like a pixel. Most characters have 100%
